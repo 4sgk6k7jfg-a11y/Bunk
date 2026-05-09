@@ -1,5 +1,5 @@
 exports.handler = async function(event) {
-  const GEMINI_KEY = "YOUR_ACTUAL_KEY_HERE";
+  const GEMINI_KEY = "AIzaSyBnZk5YMGM1NAaDlLjizxOhMnOuuRYnlxI";
   const { prompt } = JSON.parse(event.body || "{}");
   if (!prompt) return { statusCode:400, body:"No prompt" };
   try {
