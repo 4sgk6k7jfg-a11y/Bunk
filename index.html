@@ -272,27 +272,28 @@
 // ══ PASTE YOUR GEMINI KEY BELOW ══
 const GEMINI_KEY = "AIzaSyAL1Ha_r1SsFGB5pDMBLDeTDs7Tz6WNctQ";
 
-async function callGemini(prompt){
+async function callGemini(prompt) {
   try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_KEY}`,
-      {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{maxOutputTokens:1000}
-        })
-      }
-    );
-    if(!res.ok){ const e=await res.text(); console.error("Gemini error:",e); return null; }
+    const res = await fetch("/.netlify/functions/ai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || `Server error: ${res.status}`);
+    }
+
     const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-  } catch(e){
-    console.error("Gemini fetch error:",e);
-    return null;
+    return data.text; 
+
+  } catch (error) {
+    console.error("AI Error:", error);
+    return "The AI is sleepy right now. Error: " + error.message;
   }
 }
+
 
 // ══ TITLE SYSTEM ══
 const TITLES=[
