@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -269,31 +269,21 @@
 </div>
 
 <script>
-// ══ PASTE YOUR GEMINI KEY BELOW ══
-const GEMINI_KEY = "AIzaSyAL1Ha_r1SsFGB5pDMBLDeTDs7Tz6WNctQ";
-
-async function callGemini(prompt) {
+// ══ AI CALL via Netlify Function ══
+async function callGemini(prompt){
   try {
     const res = await fetch("/.netlify/functions/ai", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: prompt })
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({prompt})
     });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || `Server error: ${res.status}`);
-    }
-
     const data = await res.json();
-    return data.text; 
-
-  } catch (error) {
-    console.error("AI Error:", error);
-    return "The AI is sleepy right now. Error: " + error.message;
+    return data.text || null;
+  } catch(e){
+    console.error("Gemini fetch error:",e);
+    return null;
   }
 }
-
 
 // ══ TITLE SYSTEM ══
 const TITLES=[
