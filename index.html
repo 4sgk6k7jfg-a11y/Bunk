@@ -1,4 +1,5 @@
-!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,8 +22,6 @@
     pointer-events:none; z-index:0;
   }
   .wrap { position:relative; z-index:1; max-width:520px; margin:0 auto; padding:0 16px 100px; }
-
-  /* ── BOTTOM NAV ── */
   .bottom-nav { position:fixed; bottom:0; left:0; right:0; z-index:50; background:rgba(13,16,32,.95); backdrop-filter:blur(16px); border-top:1px solid var(--border); display:flex; justify-content:center; }
   .bottom-nav-inner { display:flex; width:100%; max-width:520px; }
   .nav-tab { flex:1; padding:12px 8px 16px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; border:none; background:transparent; color:var(--muted); transition:color .2s; font-family:'DM Sans',sans-serif; }
@@ -30,8 +29,6 @@
   .nav-tab .tab-icon { font-size:20px; line-height:1; }
   .nav-tab .tab-label { font-size:10px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; }
   .nav-tab.active .tab-icon { filter:drop-shadow(0 0 6px var(--accent)); }
-
-  /* ── HEADER ── */
   .header { padding:22px 0 18px; border-bottom:1px solid var(--border); margin-bottom:20px; display:flex; flex-direction:column; gap:14px; }
   .header-top { display:flex; align-items:center; justify-content:space-between; }
   .logo { display:flex; align-items:center; gap:10px; }
@@ -44,25 +41,17 @@
   .search-wrap { flex:1; position:relative; }
   .search-wrap input { padding-left:36px; }
   .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:14px; }
-
-  /* ── STATS ── */
   .stats { display:flex; gap:8px; margin-bottom:18px; }
   .stat { flex:1; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 8px; text-align:center; position:relative; overflow:hidden; }
   .stat::before { content:''; position:absolute; inset:0; background:linear-gradient(160deg,rgba(255,255,255,.04),transparent 60%); pointer-events:none; }
   .stat-val { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; line-height:1; filter:drop-shadow(0 0 8px currentColor); }
   .stat-lbl { font-size:10px; color:var(--muted); margin-top:5px; letter-spacing:.8px; text-transform:uppercase; font-weight:600; }
-
-  /* ── INPUTS ── */
   input,select,textarea { width:100%; background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:11px 14px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
   input:focus,select:focus,textarea:focus { border-color:var(--accent); }
   select option { background:var(--bg2); }
   label { display:block; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
   .field { margin-bottom:13px; }
-
-  /* ── CARDS ── */
   .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px; margin-bottom:10px; }
-
-  /* ── QUESTION ITEM ── */
   .q-item { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:10px; cursor:pointer; transition:border-color .2s,transform .15s; }
   .q-item:hover { border-color:var(--accent); transform:translateY(-1px); }
   .q-item.unanswered { border-color:rgba(248,113,113,.3); }
@@ -71,37 +60,26 @@
   .q-name { font-weight:700; font-size:13px; color:#fff; }
   .q-text { font-size:14px; color:#c8d0e0; line-height:1.6; margin-bottom:10px; }
   .q-footer { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); }
-
-  /* ── BADGES ── */
   .badge { display:inline-block; border-radius:20px; padding:2px 10px; font-size:11px; font-weight:600; letter-spacing:.3px; flex-shrink:0; }
   .badge-needs { background:rgba(248,113,113,.15); color:var(--red); border:1px solid rgba(248,113,113,.3); font-size:10px; font-weight:700; }
   .badge-answered { background:rgba(52,211,153,.12); color:var(--green); border:1px solid rgba(52,211,153,.25); font-size:10px; }
   .title-badge { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.3px; }
-
-  /* ── AVATAR ── */
   .avatar { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex-shrink:0; font-family:'Syne',sans-serif; }
-
-  /* ── REPLY ── */
   .reply-item { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:10px; }
   .reply-item.ai-reply { background:rgba(99,102,241,.07); border-color:rgba(129,140,248,.3); }
   .reply-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
   .reply-name { font-weight:600; font-size:13px; }
   .reply-text { font-size:14px; color:#d0d8ec; line-height:1.7; }
-
-  /* ── BUTTONS ── */
   .btn { width:100%; padding:13px; border:none; border-radius:11px; font-family:'Syne',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; letter-spacing:.3px; }
   .btn-primary { background:linear-gradient(135deg,var(--accent2),#a78bfa); color:#fff; }
   .btn-primary:hover { opacity:.9; transform:translateY(-1px); }
+  .btn-primary:disabled { background:var(--border); color:var(--muted); cursor:not-allowed; transform:none; }
   .btn-back { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:7px 14px; color:var(--muted); font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; }
   .btn-ai { background:rgba(129,140,248,.12); border:1px solid rgba(129,140,248,.3); color:var(--accent); width:100%; padding:12px; border-radius:11px; font-family:'Syne',sans-serif; font-size:14px; font-weight:700; cursor:pointer; transition:all .2s; }
   .btn-ai:hover { background:rgba(129,140,248,.2); }
-
-  /* ── MODAL ── */
   .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; animation:fadeIn .2s ease; }
   .modal { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:24px; width:100%; max-width:480px; animation:slideUp .25s ease; max-height:90vh; overflow-y:auto; }
   .modal-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--white); margin-bottom:18px; }
-
-  /* ── LEADERBOARD ── */
   .podium { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-bottom:28px; padding:0 8px; }
   .podium-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
   .podium-avatar-wrap { position:relative; margin-bottom:4px; }
@@ -118,33 +96,40 @@
   .export-box { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:16px; margin-top:16px; }
   .export-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border); font-size:13px; }
   .export-row:last-child { border-bottom:none; }
-
-  /* ── CREDIT TOAST ── */
   .credit-toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:linear-gradient(135deg,var(--accent2),#a78bfa); color:#fff; font-family:'Syne',sans-serif; font-weight:700; font-size:14px; padding:10px 20px; border-radius:30px; z-index:200; transition:transform .4s cubic-bezier(.34,1.56,.64,1); white-space:nowrap; box-shadow:0 4px 20px rgba(99,102,241,.4); }
   .credit-toast.show { transform:translateX(-50%) translateY(0); }
-
+  .loading-screen { position:fixed; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:300; gap:16px; }
+  .loading-spinner { width:48px; height:48px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 1s linear infinite; }
   .section-label { font-size:11px; color:#8892b0; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px; }
   .divider { height:1px; background:var(--border); margin:18px 0; }
   .empty-state { text-align:center; padding:40px 20px; color:var(--muted); }
   .empty-state .ei { font-size:44px; margin-bottom:10px; }
   .ai-thinking { text-align:center; padding:18px; background:rgba(129,140,248,.08); border:1px solid rgba(129,140,248,.25); border-radius:12px; color:var(--accent); font-size:14px; margin-bottom:12px; }
   .dot-anim::after { content:'...'; animation:dots 1.2s infinite; }
-
   @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
   @keyframes slideUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
   @keyframes fadeUp  { from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)} }
   @keyframes dots    { 0%{content:'.'}33%{content:'..'}66%{content:'...'} }
+  @keyframes spin    { to{transform:rotate(360deg)} }
   .screen { animation:fadeUp .3s ease; }
 </style>
 </head>
 <body>
 
+<!-- Loading screen -->
+
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-spinner"></div>
+  <div style="font-family:'Syne',sans-serif;font-size:16px;color:var(--muted)">Loading AskBoard...</div>
+</div>
+
 <div class="credit-toast" id="credit-toast"></div>
 
 <div class="wrap">
 
-  <!-- ════════ SCREEN 1: BOARD ════════ -->
-  <div id="screen-board" class="screen">
+  <!-- SCREEN 1: BOARD -->
+
+  <div id="screen-board" class="screen" style="display:none">
     <div class="header">
       <div class="header-top">
         <div class="logo">
@@ -171,7 +156,8 @@
     <div id="questions-list"></div>
   </div>
 
-  <!-- ════════ SCREEN 2: QUESTION DETAIL ════════ -->
+  <!-- SCREEN 2: QUESTION DETAIL -->
+
   <div id="screen-question" style="display:none" class="screen">
     <div class="header" style="flex-direction:row;align-items:center;justify-content:space-between;padding:18px 0">
       <button class="btn-back" onclick="goBack()">← Back</button>
@@ -191,11 +177,12 @@
       <div style="font-size:12px;color:var(--green);margin-bottom:14px">✨ Earn 1–5 credits — AI rates your answer quality!</div>
       <div class="field"><label>Your Name</label><input type="text" id="reply-name" placeholder="e.g. Sarah"></div>
       <div class="field"><label>Your Answer</label><textarea id="reply-text" rows="3" placeholder="Help your classmate out..."></textarea></div>
-      <button class="btn btn-primary" onclick="submitReply()" style="margin-top:4px">Post Reply → (up to +5 credits)</button>
+      <button class="btn btn-primary" id="reply-btn" onclick="submitReply()" style="margin-top:4px">Post Reply → (up to +5 credits)</button>
     </div>
   </div>
 
-  <!-- ════════ SCREEN 3: LEADERBOARD ════════ -->
+  <!-- SCREEN 3: LEADERBOARD -->
+
   <div id="screen-leaderboard" style="display:none" class="screen">
     <div class="header" style="padding:22px 0 18px">
       <div class="header-top">
@@ -209,21 +196,13 @@
         </div>
       </div>
     </div>
-
-    <!-- Title guide -->
     <div class="card" style="margin-bottom:16px">
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--white);margin-bottom:12px">🎖️ Title System</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px" id="title-guide"></div>
     </div>
-
-    <!-- Podium -->
     <div id="podium-wrap"></div>
-
-    <!-- Full list -->
     <div class="section-label" style="margin-top:8px">ALL CONTRIBUTORS</div>
     <div id="lb-full-list"></div>
-
-    <!-- Teacher export -->
     <div class="export-box">
       <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px">📋 Participation Grade Report</div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Share with your teacher to show peer contribution scores.</div>
@@ -233,7 +212,8 @@
 
 </div>
 
-<!-- ════════ BOTTOM NAV ════════ -->
+<!-- BOTTOM NAV -->
+
 <div class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="nav-tab active" id="tab-board" onclick="switchScreen('board')">
@@ -245,7 +225,8 @@
   </div>
 </div>
 
-<!-- ════════ ASK MODAL ════════ -->
+<!-- ASK MODAL -->
+
 <div id="ask-modal" class="modal-overlay" style="display:none">
   <div class="modal">
     <div class="modal-title">📝 Post a Question</div>
@@ -268,21 +249,37 @@
   </div>
 </div>
 
-<script>
-// ══ AI CALL via Netlify Function ══
-async function callGemini(prompt){
+<!-- Firebase SDK -->
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+// ══ FIREBASE CONFIG ══
+const firebaseConfig = {
+  apiKey: "AIzaSyAXlWthaLbkCICIy4dgwQexNnKnCmfiJJA",
+  authDomain: "studybudy-3722e.firebaseapp.com",
+  projectId: "studybudy-3722e",
+  storageBucket: "studybudy-3722e.firebasestorage.app",
+  messagingSenderId: "983470521146",
+  appId: "1:983470521146:web:2df5ef0119686476376e03"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+// ══ GEMINI KEY ══
+const GEMINI_KEY = "AIzaSyBnZk5YMGM1NAaDlLjizxOhMnOuuRYnlxI";
+
+async function callGemini(prompt) {
   try {
-    const res = await fetch("/.netlify/functions/ai", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({prompt})
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_KEY}`,
+      { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({contents:[{parts:[{text:prompt}]}]}) }
+    );
     const data = await res.json();
-    return data.text || null;
-  } catch(e){
-    console.error("Gemini fetch error:",e);
-    return null;
-  }
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+  } catch(e) { return null; }
 }
 
 // ══ TITLE SYSTEM ══
@@ -294,76 +291,92 @@ const TITLES=[
   {min:100,max:9999,emoji:"👑",title:"Legend",        color:"#f472b6"},
 ];
 function getTitle(pts){ return TITLES.find(t=>pts>=t.min&&pts<=t.max)||TITLES[0]; }
-function titleBadge(pts){
-  const t=getTitle(pts);
-  return `<span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44">${t.emoji} ${t.title}</span>`;
-}
-
-// ══ CREDITS ══
-let credits={};
-
-function addCredit(name,pts){
-  if(name==="AskBoard AI") return;
-  if(!credits[name]) credits[name]={pts:0,answers:0};
-  credits[name].pts+=pts;
-  credits[name].answers+=1;
-  showToast(`+${pts} credits — ${getTitle(credits[name].pts).emoji} ${getTitle(credits[name].pts).title}!`);
-  if(document.getElementById('screen-leaderboard').style.display!=='none') renderLeaderboard();
-}
-
-function showToast(msg){
-  const t=document.getElementById('credit-toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-// ══ DATA ══
-let questions=[];
-let activeId=null;
+function titleBadge(pts){ const t=getTitle(pts); return `<span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44">${t.emoji} ${t.title}</span>`; }
 
 // ══ HELPERS ══
 const SC={Mathematics:"#818cf8",Science:"#34d399",English:"#fbbf24",History:"#f87171",Geography:"#2dd4bf",Physics:"#60a5fa",Chemistry:"#f472b6",Biology:"#a3e635",Art:"#fb923c",Music:"#c084fc",Other:"#94a3b8"};
-function subjectBadge(s){const c=SC[s]||"#94a3b8";return `<span class="badge" style="background:${c}22;color:${c};border:1px solid ${c}44">${s}</span>`;}
-function avatar(name,size=34){const cols=["#6366f1","#34d399","#fbbf24","#f87171","#3b82f6","#ec4899","#14b8a6","#f97316","#a855f7"];const c=cols[name.charCodeAt(0)%cols.length];return `<div class="avatar" style="width:${size}px;height:${size}px;background:${c};font-size:${Math.floor(size*.38)}px">${name.charAt(0).toUpperCase()}</div>`;}
-function timeAgo(ts){const d=Math.floor((Date.now()-ts)/1000);if(d<60)return `${d}s ago`;if(d<3600)return `${Math.floor(d/60)}m ago`;return `${Math.floor(d/3600)}h ago`;}
+function subjectBadge(s){ const c=SC[s]||"#94a3b8"; return `<span class="badge" style="background:${c}22;color:${c};border:1px solid ${c}44">${s}</span>`; }
+function avatar(name,size=34){ const cols=["#6366f1","#34d399","#fbbf24","#f87171","#3b82f6","#ec4899","#14b8a6","#f97316","#a855f7"]; const c=cols[name.charCodeAt(0)%cols.length]; return `<div class="avatar" style="width:${size}px;height:${size}px;background:${c};font-size:${Math.floor(size*.38)}px">${name.charAt(0).toUpperCase()}</div>`; }
+function timeAgo(ts){ if(!ts) return "just now"; const d=Math.floor((Date.now()-ts)/1000); if(d<60)return `${d}s ago`; if(d<3600)return `${Math.floor(d/60)}m ago`; return `${Math.floor(d/3600)}h ago`; }
+function showToast(msg){ const t=document.getElementById('credit-toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
+
+// ══ STATE ══
+let questions = [];
+let credits   = {};
+let activeId  = null;
+
+// ══ FIRESTORE LISTENERS ══
+// Listen to questions in real time
+const qQuery = query(collection(db,"questions"), orderBy("ts","desc"));
+onSnapshot(qQuery, snap => {
+  questions = snap.docs.map(d => ({id:d.id,...d.data()}));
+  if(document.getElementById('screen-board').style.display !== 'none') renderBoard();
+  if(activeId && document.getElementById('screen-question').style.display !== 'none') renderDetail();
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('screen-board').style.display = 'block';
+});
+
+// Listen to credits in real time
+onSnapshot(collection(db,"credits"), snap => {
+  credits = {};
+  snap.docs.forEach(d => { credits[d.id] = d.data(); });
+  if(document.getElementById('screen-leaderboard').style.display !== 'none') renderLeaderboard();
+});
 
 // ══ SCREEN SWITCHER ══
-function switchScreen(name){
+window.switchScreen = function(name) {
   ['board','question','leaderboard'].forEach(s=>document.getElementById('screen-'+s).style.display=s===name?'block':'none');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+(name==='question'?'board':name)).classList.add('active');
-  if(name==='board') renderBoard();
   if(name==='leaderboard') renderLeaderboard();
 }
 
-// ══ SCREEN 1 ══
-function renderBoard(){
+// ══ SCREEN 1: BOARD ══
+window.renderBoard = function() {
   const search=document.getElementById('search-input').value.toLowerCase();
   const subj=document.getElementById('filter-subject').value;
-  let list=[...questions].filter(q=>!subj||q.subject===subj).filter(q=>q.question.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search)).sort((a,b)=>{if(a.answered!==b.answered)return a.answered?1:-1;return b.ts-a.ts;});
-  const total=questions.length,unans=questions.filter(q=>!q.answered).length;
-  document.getElementById('stats-row').innerHTML=[{l:"Questions",v:total,c:"var(--accent)"},{l:"Unanswered",v:unans,c:"var(--red)"},{l:"Answered",v:total-unans,c:"var(--green)"}].map(s=>`<div class="stat"><div class="stat-val" style="color:${s.c}">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
-  document.getElementById('questions-list').innerHTML=list.length===0
-    ?`<div class="empty-state"><div class="ei">🔍</div><p>No questions found.</p></div>`
-    :list.map(q=>`
-      <div class="q-item ${q.answered?'':'unanswered'}" onclick="openQuestion(${q.id})">
+  let list=[...questions]
+    .filter(q=>!subj||q.subject===subj)
+    .filter(q=>q.question.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search))
+    .sort((a,b)=>{ if(a.answered!==b.answered) return a.answered?1:-1; return (b.ts||0)-(a.ts||0); });
+
+  const total=questions.length, unans=questions.filter(q=>!q.answered).length;
+  document.getElementById('stats-row').innerHTML=[
+    {l:"Questions",v:total,c:"var(--accent)"},
+    {l:"Unanswered",v:unans,c:"var(--red)"},
+    {l:"Answered",v:total-unans,c:"var(--green)"}
+  ].map(s=>`<div class="stat"><div class="stat-val" style="color:${s.c}">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
+
+  document.getElementById('questions-list').innerHTML = list.length===0
+    ? `<div class="empty-state"><div class="ei">📭</div><p>No questions yet — be the first to ask!</p></div>`
+    : list.map(q=>`
+      <div class="q-item ${q.answered?'':'unanswered'}" onclick="openQuestion('${q.id}')">
         <div class="q-top">
           <div class="q-meta">${avatar(q.name)}<div><div class="q-name">${q.name}</div><div style="margin-top:2px">${titleBadge(credits[q.name]?.pts||0)}</div></div></div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">${subjectBadge(q.subject)}${!q.answered?`<span class="badge badge-needs">NEEDS HELP</span>`:`<span class="badge badge-answered">✓ Answered</span>`}</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            ${subjectBadge(q.subject)}
+            ${!q.answered?`<span class="badge badge-needs">NEEDS HELP</span>`:`<span class="badge badge-answered">✓ Answered</span>`}
+          </div>
         </div>
         <div class="q-text">${q.question}</div>
-        <div class="q-footer">💬 ${q.replies.length} ${q.replies.length===1?'reply':'replies'} · ${timeAgo(q.ts)}</div>
+        <div class="q-footer">💬 ${(q.replies||[]).length} ${(q.replies||[]).length===1?'reply':'replies'} · ${timeAgo(q.ts)}</div>
       </div>`).join('');
 }
 
-// ══ SCREEN 2 ══
-function openQuestion(id){
-  activeId=id; switchScreen('question');
-  document.getElementById('reply-name').value=''; document.getElementById('reply-text').value='';
-  document.getElementById('ai-btn-wrap').style.display='block'; document.getElementById('ai-thinking').style.display='none';
+// ══ SCREEN 2: QUESTION DETAIL ══
+window.openQuestion = function(id) {
+  activeId=id;
+  switchScreen('question');
+  document.getElementById('reply-name').value='';
+  document.getElementById('reply-text').value='';
+  document.getElementById('ai-btn-wrap').style.display='block';
+  document.getElementById('ai-thinking').style.display='none';
+  document.getElementById('reply-btn').disabled=false;
+  document.getElementById('reply-btn').textContent='Post Reply → (up to +5 credits)';
   renderDetail();
 }
-function renderDetail(){
+
+window.renderDetail = function() {
   const q=questions.find(q=>q.id===activeId); if(!q) return;
   document.getElementById('detail-question-card').innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
@@ -371,117 +384,114 @@ function renderDetail(){
       ${subjectBadge(q.subject)}
     </div>
     <div style="font-size:15px;color:var(--white);line-height:1.65;font-weight:500">${q.question}</div>`;
-  document.getElementById('replies-label').textContent=`${q.replies.length} ${q.replies.length===1?'Reply':'Replies'}`;
-  document.getElementById('replies-list').innerHTML=q.replies.length===0
+
+  const replies = q.replies||[];
+  document.getElementById('replies-label').textContent=`${replies.length} ${replies.length===1?'Reply':'Replies'}`;
+  document.getElementById('replies-list').innerHTML=replies.length===0
     ?`<div class="empty-state" style="padding:24px 0"><div class="ei">🤔</div><p style="font-size:13px">No replies yet — be the first to help!</p></div>`
-    :q.replies.map(r=>`
+    :replies.map(r=>`
       <div class="reply-item ${r.isAI?'ai-reply':''}">
-        <div class="reply-top">${avatar(r.isAI?'A':r.name,30)}<div><div class="reply-name" style="color:${r.isAI?'var(--accent)':'var(--white)'}">${r.name}${r.isAI?' 🤖':''}</div>${!r.isAI?`<div style="margin-top:2px">${titleBadge(credits[r.name]?.pts||0)}</div>`:`<div style="font-size:10px;color:var(--muted)">AI Assistant</div>`}</div></div>
+        <div class="reply-top">${avatar(r.isAI?'A':r.name,30)}<div>
+          <div class="reply-name" style="color:${r.isAI?'var(--accent)':'var(--white)'}">${r.name}${r.isAI?' 🤖':''}</div>
+          ${!r.isAI?`<div style="margin-top:2px">${titleBadge(credits[r.name]?.pts||0)}</div>`:`<div style="font-size:10px;color:var(--muted)">AI Assistant</div>`}
+        </div></div>
         <div class="reply-text">${r.text}</div>
-        ${!r.isAI && r.score ? `<div style="margin-top:8px;font-size:11px;color:var(--green);font-weight:700">⭐ AI Rating: ${r.score}/5 · +${r.score} credits earned</div>` : ''}
+        ${!r.isAI&&r.score?`<div style="margin-top:8px;font-size:11px;color:var(--green);font-weight:700">⭐ AI Rating: ${r.score}/5 · +${r.score} credits earned</div>`:''}
       </div>`).join('');
 }
-function goBack(){ switchScreen('board'); activeId=null; }
 
-// ══ SCREEN 3 ══
-function renderLeaderboard(){
-  const sorted=Object.entries(credits).map(([name,d])=>({name,...d})).sort((a,b)=>b.pts-a.pts);
-  document.getElementById('lb-total-helpers').textContent=sorted.length;
+window.goBack = function() { switchScreen('board'); activeId=null; }
 
-  // Title guide
-  document.getElementById('title-guide').innerHTML=TITLES.map(t=>`<span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44">${t.emoji} ${t.title} (${t.min}${t.max===9999?'+':`–${t.max}`} pts)</span>`).join('');
+// ══ SUBMIT QUESTION ══
+window.openAskModal  = function(){ document.getElementById('ask-modal').style.display='flex'; }
+window.closeAskModal = function(){ document.getElementById('ask-modal').style.display='none'; }
 
-  // Podium
-  const order=[{i:1,h:80,c:"var(--silver)",crown:"🥈"},{i:0,h:110,c:"var(--gold)",crown:"👑"},{i:2,h:60,c:"var(--bronze)",crown:"🥉"}];
-  document.getElementById('podium-wrap').innerHTML=sorted.length===0
-    ?`<div class="empty-state"><div class="ei">🏆</div><p>No contributors yet!</p></div>`
-    :`<div class="podium">${order.map(p=>{const u=sorted[p.i];if(!u)return`<div style="flex:1"></div>`;const t=getTitle(u.pts);return`<div class="podium-item"><div class="podium-name">${u.name}</div><div class="podium-pts">${u.pts} pts</div><span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:10px">${t.emoji} ${t.title}</span><div class="podium-avatar-wrap"><div class="podium-crown">${p.crown}</div>${avatar(u.name,p.i===0?52:40)}</div><div class="podium-block" style="height:${p.h}px;background:${p.c}22;border:1px solid ${p.c}44;color:${p.c}">${p.i+1}</div></div>`;}).join('')}</div>`;
-
-  // Full list
-  const rankC=["var(--gold)","var(--silver)","var(--bronze)"];
-  document.getElementById('lb-full-list').innerHTML=sorted.length===0
-    ?`<div class="empty-state"><div class="ei">📭</div><p>Nobody has answered yet.</p></div>`
-    :sorted.map((u,i)=>{const t=getTitle(u.pts);return`<div class="lb-item"><div class="lb-rank" style="color:${rankC[i]||'var(--muted)'}">${i+1}</div>${avatar(u.name,36)}<div class="lb-info"><div class="lb-name">${u.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px">${titleBadge(u.pts)}<span style="font-size:11px;color:var(--muted)">${u.answers} answers</span></div></div><div style="text-align:right"><div class="lb-pts" style="color:${t.color}">${u.pts}</div><div class="lb-pts-lbl">CREDITS</div></div></div>`;}).join('');
-
-  // Export
-  document.getElementById('export-list').innerHTML=sorted.length===0
-    ?`<div style="font-size:13px;color:var(--muted)">No data yet.</div>`
-    :sorted.map((u,i)=>{const t=getTitle(u.pts);return`<div class="export-row"><span style="color:var(--text)">${i+1}. ${u.name}</span><span style="color:var(--muted)">${t.emoji} ${t.title} · ${u.pts} pts · ${u.answers} answers</span></div>`;}).join('');
-}
-
-// ══ ACTIONS ══
-function openAskModal(){document.getElementById('ask-modal').style.display='flex';}
-function closeAskModal(){document.getElementById('ask-modal').style.display='none';}
-
-function submitQuestion(){
+window.submitQuestion = async function() {
   const name=document.getElementById('ask-name').value.trim();
   const subj=document.getElementById('ask-subject').value;
   const text=document.getElementById('ask-question').value.trim();
   if(!name){alert('Please enter your name.');return;}
   if(!subj){alert('Please select a subject.');return;}
   if(!text){alert('Please type your question.');return;}
-  questions.unshift({id:Date.now(),name,subject:subj,question:text,replies:[],ts:Date.now(),answered:false});
-  document.getElementById('ask-name').value=''; document.getElementById('ask-subject').value=''; document.getElementById('ask-question').value='';
-  closeAskModal(); renderBoard();
+  await addDoc(collection(db,"questions"),{name,subject:subj,question:text,replies:[],ts:Date.now(),answered:false});
+  document.getElementById('ask-name').value='';
+  document.getElementById('ask-subject').value='';
+  document.getElementById('ask-question').value='';
+  closeAskModal();
 }
 
-async function submitReply(){
+// ══ SUBMIT REPLY ══
+window.submitReply = async function() {
   const name=document.getElementById('reply-name').value.trim();
   const text=document.getElementById('reply-text').value.trim();
   if(!name){alert('Please enter your name.');return;}
   if(!text){alert('Please type your reply.');return;}
   const q=questions.find(q=>q.id===activeId); if(!q) return;
 
-  // Disable button while AI rates
-  const btn=document.querySelector('#screen-question .btn-primary');
+  const btn=document.getElementById('reply-btn');
   btn.disabled=true; btn.textContent='AI is rating your answer...';
 
-  // FIX 1 & 2: AI rates the answer 1-5 credits
-  let earned=3; // default fallback
+  // AI rates the answer
+  let earned=3;
   try {
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","x-api-key":"","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-      body:JSON.stringify({
-        model:"claude-sonnet-4-20250514",max_tokens:50,
-        messages:[{role:"user",content:`Rate this student answer to the question below. Reply with ONLY a single number from 1 to 5. No explanation.
-
-Question: "${q.question}"
-Answer: "${text}"
-
-Scoring: 1=wrong/irrelevant, 2=very weak, 3=partially correct, 4=good, 5=excellent`}]
-      })
-    });
-    const data=await res.json();
-    const raw=data.content?.[0]?.text?.trim()||"3";
-    const num=parseInt(raw.match(/[1-5]/)?.[0]||"3");
+    const raw=await callGemini(`Rate this student answer to the question below. Reply with ONLY a single number from 1 to 5. No explanation.\n\nQuestion: "${q.question}"\nAnswer: "${text}"\n\nScoring: 1=wrong/irrelevant, 2=very weak, 3=partially correct, 4=good, 5=excellent`);
+    const num=parseInt((raw||"3").match(/[1-5]/)?.[0]||"3");
     earned=isNaN(num)?3:num;
   } catch(e){ earned=3; }
 
-  q.replies.push({name,text,isAI:false,score:earned}); q.answered=true;
-  addCredit(name,earned);
-  document.getElementById('reply-name').value=''; document.getElementById('reply-text').value='';
-  btn.disabled=false; btn.textContent='Post Reply → (up to +5 credits)';
-  renderDetail();
+  // Save reply to Firestore
+  const newReplies=[...(q.replies||[]),{name,text,isAI:false,score:earned,ts:Date.now()}];
+  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true});
+
+  // Update credits in Firestore
+  const creditRef=doc(db,"credits",name);
+  const creditSnap=await getDoc(creditRef);
+  if(creditSnap.exists()){
+    await updateDoc(creditRef,{pts:(creditSnap.data().pts||0)+earned,answers:(creditSnap.data().answers||0)+1});
+  } else {
+    const {setDoc}=await import("https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js");
+    await setDoc(creditRef,{pts:earned,answers:1});
+  }
+
+  showToast(`+${earned} credits — ${getTitle((credits[name]?.pts||0)+earned).emoji} ${getTitle((credits[name]?.pts||0)+earned).title}!`);
+  document.getElementById('reply-name').value='';
+  document.getElementById('reply-text').value='';
+  btn.disabled=false;
+  btn.textContent='Post Reply → (up to +5 credits)';
 }
 
-async function getAIAnswer(){
+// ══ AI ANSWER ══
+window.getAIAnswer = async function() {
   const q=questions.find(q=>q.id===activeId); if(!q) return;
   document.getElementById('ai-btn-wrap').style.display='none';
   document.getElementById('ai-thinking').style.display='block';
-  try {
-    const answer = await callGemini(`You are a friendly school tutor on a student Q&A board. A student asked this ${q.subject} question: "${q.question}"
-
-Give a clear, helpful, encouraging answer for a school student. Keep it concise and easy to understand. No markdown headers, just plain readable text.`);
-    q.replies.push({name:"AskBoard AI",text:answer||"Sorry, I could not generate an answer.",isAI:true}); q.answered=true;
-  } catch(e) {
-    q.replies.push({name:"AskBoard AI",text:"Sorry, I could not connect right now. Please try again!",isAI:true});
-  }
+  const answer=await callGemini(`You are a friendly school tutor. A student asked this ${q.subject} question: "${q.question}"\n\nGive a clear, helpful answer for a school student. Keep it concise. No markdown headers, plain text only.`);
+  const newReplies=[...(q.replies||[]),{name:"AskBoard AI",text:answer||"Sorry, I could not generate an answer.",isAI:true,ts:Date.now()}];
+  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true});
   document.getElementById('ai-thinking').style.display='none';
-  renderDetail();
 }
 
-renderBoard();
+// ══ SCREEN 3: LEADERBOARD ══
+window.renderLeaderboard = function() {
+  const sorted=Object.entries(credits).map(([name,d])=>({name,...d})).sort((a,b)=>b.pts-a.pts);
+  document.getElementById('lb-total-helpers').textContent=sorted.length;
+  document.getElementById('title-guide').innerHTML=TITLES.map(t=>`<span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44">${t.emoji} ${t.title} (${t.min}${t.max===9999?'+':`–${t.max}`} pts)</span>`).join('');
+
+  const order=[{i:1,h:80,c:"var(--silver)",crown:"🥈"},{i:0,h:110,c:"var(--gold)",crown:"👑"},{i:2,h:60,c:"var(--bronze)",crown:"🥉"}];
+  document.getElementById('podium-wrap').innerHTML=sorted.length===0
+    ?`<div class="empty-state"><div class="ei">🏆</div><p>No contributors yet!</p></div>`
+    :`<div class="podium">${order.map(p=>{const u=sorted[p.i];if(!u)return`<div style="flex:1"></div>`;const t=getTitle(u.pts);return`<div class="podium-item"><div class="podium-name">${u.name}</div><div class="podium-pts">${u.pts} pts</div><span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:10px">${t.emoji} ${t.title}</span><div class="podium-avatar-wrap"><div class="podium-crown">${p.crown}</div>${avatar(u.name,p.i===0?52:40)}</div><div class="podium-block" style="height:${p.h}px;background:${p.c}22;border:1px solid ${p.c}44;color:${p.c}">${p.i+1}</div></div>`;}).join('')}</div>`;
+
+  const rankC=["var(--gold)","var(--silver)","var(--bronze)"];
+  document.getElementById('lb-full-list').innerHTML=sorted.length===0
+    ?`<div class="empty-state"><div class="ei">📭</div><p>Nobody has answered yet.</p></div>`
+    :sorted.map((u,i)=>{const t=getTitle(u.pts);return`<div class="lb-item"><div class="lb-rank" style="color:${rankC[i]||'var(--muted)'}">${i+1}</div>${avatar(u.name,36)}<div class="lb-info"><div class="lb-name">${u.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px">${titleBadge(u.pts)}<span style="font-size:11px;color:var(--muted)">${u.answers} answers</span></div></div><div style="text-align:right"><div class="lb-pts" style="color:${t.color}">${u.pts}</div><div class="lb-pts-lbl">CREDITS</div></div></div>`;}).join('');
+
+  document.getElementById('export-list').innerHTML=sorted.length===0
+    ?`<div style="font-size:13px;color:var(--muted)">No data yet.</div>`
+    :sorted.map((u,i)=>{const t=getTitle(u.pts);return`<div class="export-row"><span style="color:var(--text)">${i+1}. ${u.name}</span><span style="color:var(--muted)">${t.emoji} ${t.title} · ${u.pts} pts · ${u.answers} answers</span></div>`;}).join('');
+}
 </script>
+
 </body>
 </html>
