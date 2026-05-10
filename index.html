@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -66,17 +65,16 @@
   .title-badge { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.3px; }
   .avatar { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex-shrink:0; font-family:'Syne',sans-serif; }
   .reply-item { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:10px; }
-  .reply-item.ai-reply { background:rgba(99,102,241,.07); border-color:rgba(129,140,248,.3); }
   .reply-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-  .reply-name { font-weight:600; font-size:13px; }
+  .reply-name { font-weight:600; font-size:13px; color:var(--white); }
   .reply-text { font-size:14px; color:#d0d8ec; line-height:1.7; }
   .btn { width:100%; padding:13px; border:none; border-radius:11px; font-family:'Syne',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; letter-spacing:.3px; }
   .btn-primary { background:linear-gradient(135deg,var(--accent2),#a78bfa); color:#fff; }
   .btn-primary:hover { opacity:.9; transform:translateY(-1px); }
   .btn-primary:disabled { background:var(--border); color:var(--muted); cursor:not-allowed; transform:none; }
   .btn-back { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:7px 14px; color:var(--muted); font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; }
-  .btn-ai { background:rgba(129,140,248,.12); border:1px solid rgba(129,140,248,.3); color:var(--accent); width:100%; padding:12px; border-radius:11px; font-family:'Syne',sans-serif; font-size:14px; font-weight:700; cursor:pointer; transition:all .2s; }
-  .btn-ai:hover { background:rgba(129,140,248,.2); }
+  .rate-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:700; transition:all 0.2s; }
+  .rate-btn:hover { background:var(--accent2); color:white; border-color:var(--accent2); }
   .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; animation:fadeIn .2s ease; }
   .modal { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:24px; width:100%; max-width:480px; animation:slideUp .25s ease; max-height:90vh; overflow-y:auto; }
   .modal-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--white); margin-bottom:18px; }
@@ -104,19 +102,14 @@
   .divider { height:1px; background:var(--border); margin:18px 0; }
   .empty-state { text-align:center; padding:40px 20px; color:var(--muted); }
   .empty-state .ei { font-size:44px; margin-bottom:10px; }
-  .ai-thinking { text-align:center; padding:18px; background:rgba(129,140,248,.08); border:1px solid rgba(129,140,248,.25); border-radius:12px; color:var(--accent); font-size:14px; margin-bottom:12px; }
-  .dot-anim::after { content:'...'; animation:dots 1.2s infinite; }
   @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
   @keyframes slideUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
   @keyframes fadeUp  { from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)} }
-  @keyframes dots    { 0%{content:'.'}33%{content:'..'}66%{content:'...'} }
   @keyframes spin    { to{transform:rotate(360deg)} }
   .screen { animation:fadeUp .3s ease; }
 </style>
 </head>
 <body>
-
-<!-- Loading screen -->
 
 <div class="loading-screen" id="loading-screen">
   <div class="loading-spinner"></div>
@@ -126,8 +119,6 @@
 <div class="credit-toast" id="credit-toast"></div>
 
 <div class="wrap">
-
-  <!-- SCREEN 1: BOARD -->
 
   <div id="screen-board" class="screen" style="display:none">
     <div class="header">
@@ -156,8 +147,6 @@
     <div id="questions-list"></div>
   </div>
 
-  <!-- SCREEN 2: QUESTION DETAIL -->
-
   <div id="screen-question" style="display:none" class="screen">
     <div class="header" style="flex-direction:row;align-items:center;justify-content:space-between;padding:18px 0">
       <button class="btn-back" onclick="goBack()">← Back</button>
@@ -167,21 +156,16 @@
     <div class="card" id="detail-question-card"></div>
     <div class="section-label" id="replies-label">0 Replies</div>
     <div id="replies-list"></div>
-    <div id="ai-btn-wrap" style="margin-bottom:12px">
-      <button class="btn-ai" onclick="getAIAnswer()">🤖 Ask AI for an Answer</button>
-    </div>
-    <div id="ai-thinking" class="ai-thinking" style="display:none">🤖 AI is thinking<span class="dot-anim"></span></div>
+    
     <div class="divider"></div>
     <div class="card">
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--white);margin-bottom:4px">💬 Post a Reply</div>
-      <div style="font-size:12px;color:var(--green);margin-bottom:14px">✨ Earn 1–5 credits — AI rates your answer quality!</div>
+      <div style="font-size:12px;color:var(--green);margin-bottom:14px">✨ Earn up to 5 credits when the asker rates your answer!</div>
       <div class="field"><label>Your Name</label><input type="text" id="reply-name" placeholder="e.g. Sarah"></div>
       <div class="field"><label>Your Answer</label><textarea id="reply-text" rows="3" placeholder="Help your classmate out..."></textarea></div>
-      <button class="btn btn-primary" id="reply-btn" onclick="submitReply()" style="margin-top:4px">Post Reply → (up to +5 credits)</button>
+      <button class="btn btn-primary" id="reply-btn" onclick="submitReply()" style="margin-top:4px">Post Reply →</button>
     </div>
   </div>
-
-  <!-- SCREEN 3: LEADERBOARD -->
 
   <div id="screen-leaderboard" style="display:none" class="screen">
     <div class="header" style="padding:22px 0 18px">
@@ -212,8 +196,6 @@
 
 </div>
 
-<!-- BOTTOM NAV -->
-
 <div class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="nav-tab active" id="tab-board" onclick="switchScreen('board')">
@@ -224,8 +206,6 @@
     </button>
   </div>
 </div>
-
-<!-- ASK MODAL -->
 
 <div id="ask-modal" class="modal-overlay" style="display:none">
   <div class="modal">
@@ -249,11 +229,9 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // ══ FIREBASE CONFIG ══
 const firebaseConfig = {
@@ -267,20 +245,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
-
-// ══ GEMINI KEY ══
-const GEMINI_KEY = "AIzaSyBnZk5YMGM1NAaDlLjizxOhMnOuuRYnlxI";
-
-async function callGemini(prompt) {
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_KEY}`,
-      { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({contents:[{parts:[{text:prompt}]}]}) }
-    );
-    const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-  } catch(e) { return null; }
-}
 
 // ══ TITLE SYSTEM ══
 const TITLES=[
@@ -306,7 +270,6 @@ let credits   = {};
 let activeId  = null;
 
 // ══ FIRESTORE LISTENERS ══
-// Listen to questions in real time
 const qQuery = query(collection(db,"questions"), orderBy("ts","desc"));
 onSnapshot(qQuery, snap => {
   questions = snap.docs.map(d => ({id:d.id,...d.data()}));
@@ -316,7 +279,6 @@ onSnapshot(qQuery, snap => {
   document.getElementById('screen-board').style.display = 'block';
 });
 
-// Listen to credits in real time
 onSnapshot(collection(db,"credits"), snap => {
   credits = {};
   snap.docs.forEach(d => { credits[d.id] = d.data(); });
@@ -369,10 +331,6 @@ window.openQuestion = function(id) {
   switchScreen('question');
   document.getElementById('reply-name').value='';
   document.getElementById('reply-text').value='';
-  document.getElementById('ai-btn-wrap').style.display='block';
-  document.getElementById('ai-thinking').style.display='none';
-  document.getElementById('reply-btn').disabled=false;
-  document.getElementById('reply-btn').textContent='Post Reply → (up to +5 credits)';
   renderDetail();
 }
 
@@ -389,14 +347,26 @@ window.renderDetail = function() {
   document.getElementById('replies-label').textContent=`${replies.length} ${replies.length===1?'Reply':'Replies'}`;
   document.getElementById('replies-list').innerHTML=replies.length===0
     ?`<div class="empty-state" style="padding:24px 0"><div class="ei">🤔</div><p style="font-size:13px">No replies yet — be the first to help!</p></div>`
-    :replies.map(r=>`
-      <div class="reply-item ${r.isAI?'ai-reply':''}">
-        <div class="reply-top">${avatar(r.isAI?'A':r.name,30)}<div>
-          <div class="reply-name" style="color:${r.isAI?'var(--accent)':'var(--white)'}">${r.name}${r.isAI?' 🤖':''}</div>
-          ${!r.isAI?`<div style="margin-top:2px">${titleBadge(credits[r.name]?.pts||0)}</div>`:`<div style="font-size:10px;color:var(--muted)">AI Assistant</div>`}
+    :replies.map((r, index)=>`
+      <div class="reply-item">
+        <div class="reply-top">${avatar(r.name,30)}<div>
+          <div class="reply-name">${r.name}</div>
+          <div style="margin-top:2px">${titleBadge(credits[r.name]?.pts||0)}</div>
         </div></div>
         <div class="reply-text">${r.text}</div>
-        ${!r.isAI&&r.score?`<div style="margin-top:8px;font-size:11px;color:var(--green);font-weight:700">⭐ AI Rating: ${r.score}/5 · +${r.score} credits earned</div>`:''}
+        
+        ${r.score === undefined || r.score === null ? `
+          <div style="margin-top:12px; background:var(--bg); border-radius:8px; padding:10px;">
+            <div style="font-size:11px; color:var(--muted); font-weight:700; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px;">Did this help? Rate to give credits:</div>
+            <div style="display:flex; gap:6px;">
+              ${[0,1,2,3,4,5].map(n => `<button class="rate-btn" onclick="rateAnswer('${q.id}', ${index}, ${n}, '${r.name}')">${n}</button>`).join('')}
+            </div>
+          </div>
+        ` : `
+          <div style="margin-top:10px;font-size:11px;color:var(--green);font-weight:700; display:flex; align-items:center; gap:4px;">
+            ⭐ Awarded ${r.score} Credits
+          </div>
+        `}
       </div>`).join('');
 }
 
@@ -428,47 +398,39 @@ window.submitReply = async function() {
   if(!text){alert('Please type your reply.');return;}
   const q=questions.find(q=>q.id===activeId); if(!q) return;
 
-  const btn=document.getElementById('reply-btn');
-  btn.disabled=true; btn.textContent='AI is rating your answer...';
+  // Add the reply to Firebase with a null score (meaning it hasn't been rated yet)
+  const newReplies=[...(q.replies||[]),{name, text, ts:Date.now(), score: null}];
+  await updateDoc(doc(db,"questions",activeId),{replies:newReplies, answered:true});
 
-  // AI rates the answer
-  let earned=3;
-  try {
-    const raw=await callGemini(`Rate this student answer to the question below. Reply with ONLY a single number from 1 to 5. No explanation.\n\nQuestion: "${q.question}"\nAnswer: "${text}"\n\nScoring: 1=wrong/irrelevant, 2=very weak, 3=partially correct, 4=good, 5=excellent`);
-    const num=parseInt((raw||"3").match(/[1-5]/)?.[0]||"3");
-    earned=isNaN(num)?3:num;
-  } catch(e){ earned=3; }
-
-  // Save reply to Firestore
-  const newReplies=[...(q.replies||[]),{name,text,isAI:false,score:earned,ts:Date.now()}];
-  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true});
-
-  // Update credits in Firestore
-  const creditRef=doc(db,"credits",name);
-  const creditSnap=await getDoc(creditRef);
-  if(creditSnap.exists()){
-    await updateDoc(creditRef,{pts:(creditSnap.data().pts||0)+earned,answers:(creditSnap.data().answers||0)+1});
-  } else {
-    const {setDoc}=await import("https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js");
-    await setDoc(creditRef,{pts:earned,answers:1});
-  }
-
-  showToast(`+${earned} credits — ${getTitle((credits[name]?.pts||0)+earned).emoji} ${getTitle((credits[name]?.pts||0)+earned).title}!`);
+  showToast(`Reply posted! The asker can now rate it.`);
   document.getElementById('reply-name').value='';
   document.getElementById('reply-text').value='';
-  btn.disabled=false;
-  btn.textContent='Post Reply → (up to +5 credits)';
 }
 
-// ══ AI ANSWER ══
-window.getAIAnswer = async function() {
-  const q=questions.find(q=>q.id===activeId); if(!q) return;
-  document.getElementById('ai-btn-wrap').style.display='none';
-  document.getElementById('ai-thinking').style.display='block';
-  const answer=await callGemini(`You are a friendly school tutor. A student asked this ${q.subject} question: "${q.question}"\n\nGive a clear, helpful answer for a school student. Keep it concise. No markdown headers, plain text only.`);
-  const newReplies=[...(q.replies||[]),{name:"AskBoard AI",text:answer||"Sorry, I could not generate an answer.",isAI:true,ts:Date.now()}];
-  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true});
-  document.getElementById('ai-thinking').style.display='none';
+// ══ RATE AN ANSWER (GIVE CREDITS) ══
+window.rateAnswer = async function(qId, replyIndex, score, answererName) {
+  const q = questions.find(q => q.id === qId);
+  if(!q) return;
+
+  // 1. Update the reply inside the question document to save the score
+  const updatedReplies = [...q.replies];
+  updatedReplies[replyIndex].score = score;
+  await updateDoc(doc(db, "questions", qId), { replies: updatedReplies });
+
+  // 2. Add the credits to the user who answered
+  const creditRef = doc(db, "credits", answererName);
+  const creditSnap = await getDoc(creditRef);
+  
+  if (creditSnap.exists()) {
+    await updateDoc(creditRef, { 
+      pts: (creditSnap.data().pts || 0) + score, 
+      answers: (creditSnap.data().answers || 0) + 1 
+    });
+  } else {
+    await setDoc(creditRef, { pts: score, answers: 1 });
+  }
+
+  showToast(`You awarded ${answererName} ${score} credits!`);
 }
 
 // ══ SCREEN 3: LEADERBOARD ══
