@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -54,6 +55,7 @@
   .q-item { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:10px; cursor:pointer; transition:border-color .2s,transform .15s; }
   .q-item:hover { border-color:var(--accent); transform:translateY(-1px); }
   .q-item.unanswered { border-color:rgba(248,113,113,.3); }
+  .q-item.solved { border-color:rgba(52,211,153,.3); }
   .q-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:8px; }
   .q-meta { display:flex; align-items:center; gap:8px; }
   .q-name { font-weight:700; font-size:13px; color:#fff; }
@@ -62,21 +64,21 @@
   .badge { display:inline-block; border-radius:20px; padding:2px 10px; font-size:11px; font-weight:600; letter-spacing:.3px; flex-shrink:0; }
   .badge-needs { background:rgba(248,113,113,.15); color:var(--red); border:1px solid rgba(248,113,113,.3); font-size:10px; font-weight:700; }
   .badge-answered { background:rgba(52,211,153,.12); color:var(--green); border:1px solid rgba(52,211,153,.25); font-size:10px; }
+  .badge-solved { background:rgba(251,191,36,.12); color:var(--gold); border:1px solid rgba(251,191,36,.25); font-size:10px; font-weight:700; }
   .title-badge { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.3px; }
   .avatar { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex-shrink:0; font-family:'Syne',sans-serif; }
   .reply-item { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:10px; }
+  .reply-item.top-answer { background:rgba(251,191,36,.07); border-color:rgba(251,191,36,.3); }
   .reply-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-  .reply-name { font-weight:600; font-size:13px; color:var(--white); }
+  .reply-name { font-weight:600; font-size:13px; }
   .reply-text { font-size:14px; color:#d0d8ec; line-height:1.7; }
   .btn { width:100%; padding:13px; border:none; border-radius:11px; font-family:'Syne',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; letter-spacing:.3px; }
   .btn-primary { background:linear-gradient(135deg,var(--accent2),#a78bfa); color:#fff; }
   .btn-primary:hover { opacity:.9; transform:translateY(-1px); }
   .btn-primary:disabled { background:var(--border); color:var(--muted); cursor:not-allowed; transform:none; }
   .btn-back { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:7px 14px; color:var(--muted); font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; }
-  .rate-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:700; transition:all 0.2s; }
-  .rate-btn:hover { background:var(--accent2); color:white; border-color:var(--accent2); }
-  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; animation:fadeIn .2s ease; }
-  .modal { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:24px; width:100%; max-width:480px; animation:slideUp .25s ease; max-height:90vh; overflow-y:auto; }
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; }
+  .modal { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:24px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; }
   .modal-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--white); margin-bottom:18px; }
   .podium { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-bottom:28px; padding:0 8px; }
   .podium-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
@@ -102,6 +104,10 @@
   .divider { height:1px; background:var(--border); margin:18px 0; }
   .empty-state { text-align:center; padding:40px 20px; color:var(--muted); }
   .empty-state .ei { font-size:44px; margin-bottom:10px; }
+  .star-rating { display:flex; gap:8px; justify-content:center; margin:12px 0; }
+  .star-btn { font-size:28px; background:none; border:none; cursor:pointer; transition:transform .15s; filter:grayscale(1) opacity(.4); }
+  .star-btn:hover, .star-btn.selected { filter:none; transform:scale(1.2); }
+  .rating-box { background:rgba(251,191,36,.08); border:1px solid rgba(251,191,36,.25); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
   @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
   @keyframes slideUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
   @keyframes fadeUp  { from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)} }
@@ -119,6 +125,8 @@
 <div class="credit-toast" id="credit-toast"></div>
 
 <div class="wrap">
+
+  <!-- SCREEN 1: BOARD -->
 
   <div id="screen-board" class="screen" style="display:none">
     <div class="header">
@@ -147,6 +155,8 @@
     <div id="questions-list"></div>
   </div>
 
+  <!-- SCREEN 2: QUESTION DETAIL -->
+
   <div id="screen-question" style="display:none" class="screen">
     <div class="header" style="flex-direction:row;align-items:center;justify-content:space-between;padding:18px 0">
       <button class="btn-back" onclick="goBack()">← Back</button>
@@ -156,16 +166,17 @@
     <div class="card" id="detail-question-card"></div>
     <div class="section-label" id="replies-label">0 Replies</div>
     <div id="replies-list"></div>
-    
     <div class="divider"></div>
-    <div class="card">
+    <div class="card" id="reply-form-card">
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--white);margin-bottom:4px">💬 Post a Reply</div>
-      <div style="font-size:12px;color:var(--green);margin-bottom:14px">✨ Earn up to 5 credits when the asker rates your answer!</div>
+      <div style="font-size:12px;color:var(--green);margin-bottom:14px">✨ The question asker will rate your answer 1–5 stars!</div>
       <div class="field"><label>Your Name</label><input type="text" id="reply-name" placeholder="e.g. Sarah"></div>
       <div class="field"><label>Your Answer</label><textarea id="reply-text" rows="3" placeholder="Help your classmate out..."></textarea></div>
-      <button class="btn btn-primary" id="reply-btn" onclick="submitReply()" style="margin-top:4px">Post Reply →</button>
+      <button class="btn btn-primary" id="reply-btn" onclick="submitReply()">Post Reply →</button>
     </div>
   </div>
+
+  <!-- SCREEN 3: LEADERBOARD -->
 
   <div id="screen-leaderboard" style="display:none" class="screen">
     <div class="header" style="padding:22px 0 18px">
@@ -196,6 +207,8 @@
 
 </div>
 
+<!-- BOTTOM NAV -->
+
 <div class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="nav-tab active" id="tab-board" onclick="switchScreen('board')">
@@ -206,6 +219,8 @@
     </button>
   </div>
 </div>
+
+<!-- ASK MODAL -->
 
 <div id="ask-modal" class="modal-overlay" style="display:none">
   <div class="modal">
@@ -229,11 +244,37 @@
   </div>
 </div>
 
+<!-- RATE MODAL -->
+
+<div id="rate-modal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <div class="modal-title">⭐ Rate this Answer</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:6px">You asked this question — rate how helpful this answer was!</div>
+    <div id="rate-reply-preview" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:16px;font-size:14px;color:var(--text);line-height:1.6"></div>
+    <div class="star-rating" id="star-rating">
+      <button class="star-btn" onclick="selectStar(1)">⭐</button>
+      <button class="star-btn" onclick="selectStar(2)">⭐</button>
+      <button class="star-btn" onclick="selectStar(3)">⭐</button>
+      <button class="star-btn" onclick="selectStar(4)">⭐</button>
+      <button class="star-btn" onclick="selectStar(5)">⭐</button>
+    </div>
+    <div id="star-label" style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:16px">Tap a star to rate</div>
+    <div class="field">
+      <label>Your Name (must match question poster)</label>
+      <input type="text" id="rate-asker-name" placeholder="Enter your name to confirm">
+    </div>
+    <div id="rate-error" style="color:var(--red);font-size:13px;margin-bottom:8px;display:none">❌ Name doesn't match the question poster!</div>
+    <div style="display:flex;gap:10px">
+      <button onclick="closeRateModal()" style="flex:1;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif">Cancel</button>
+      <button onclick="submitRating()" style="flex:2;padding:12px;background:linear-gradient(135deg,var(--gold),#f97316);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif">Submit Rating →</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-// ══ FIREBASE CONFIG ══
 const firebaseConfig = {
   apiKey: "AIzaSyAXlWthaLbkCICIy4dgwQexNnKnCmfiJJA",
   authDomain: "studybudy-3722e.firebaseapp.com",
@@ -246,7 +287,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// ══ TITLE SYSTEM ══
+// ── TITLE SYSTEM ──
 const TITLES=[
   {min:0,  max:9,   emoji:"🌱",title:"Newcomer",     color:"#94a3b8"},
   {min:10, max:24,  emoji:"⭐",title:"Helper",        color:"#fbbf24"},
@@ -257,35 +298,33 @@ const TITLES=[
 function getTitle(pts){ return TITLES.find(t=>pts>=t.min&&pts<=t.max)||TITLES[0]; }
 function titleBadge(pts){ const t=getTitle(pts); return `<span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44">${t.emoji} ${t.title}</span>`; }
 
-// ══ HELPERS ══
+// ── HELPERS ──
 const SC={Mathematics:"#818cf8",Science:"#34d399",English:"#fbbf24",History:"#f87171",Geography:"#2dd4bf",Physics:"#60a5fa",Chemistry:"#f472b6",Biology:"#a3e635",Art:"#fb923c",Music:"#c084fc",Other:"#94a3b8"};
 function subjectBadge(s){ const c=SC[s]||"#94a3b8"; return `<span class="badge" style="background:${c}22;color:${c};border:1px solid ${c}44">${s}</span>`; }
 function avatar(name,size=34){ const cols=["#6366f1","#34d399","#fbbf24","#f87171","#3b82f6","#ec4899","#14b8a6","#f97316","#a855f7"]; const c=cols[name.charCodeAt(0)%cols.length]; return `<div class="avatar" style="width:${size}px;height:${size}px;background:${c};font-size:${Math.floor(size*.38)}px">${name.charAt(0).toUpperCase()}</div>`; }
 function timeAgo(ts){ if(!ts) return "just now"; const d=Math.floor((Date.now()-ts)/1000); if(d<60)return `${d}s ago`; if(d<3600)return `${Math.floor(d/60)}m ago`; return `${Math.floor(d/3600)}h ago`; }
 function showToast(msg){ const t=document.getElementById('credit-toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
 
-// ══ STATE ══
-let questions = [];
-let credits   = {};
-let activeId  = null;
+// ── STATE ──
+let questions=[], credits={}, activeId=null, rateReplyIndex=null, selectedStar=0;
 
-// ══ FIRESTORE LISTENERS ══
+// ── FIRESTORE LISTENERS ──
 const qQuery = query(collection(db,"questions"), orderBy("ts","desc"));
 onSnapshot(qQuery, snap => {
-  questions = snap.docs.map(d => ({id:d.id,...d.data()}));
-  if(document.getElementById('screen-board').style.display !== 'none') renderBoard();
-  if(activeId && document.getElementById('screen-question').style.display !== 'none') renderDetail();
-  document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('screen-board').style.display = 'block';
+  questions = snap.docs.map(d=>({id:d.id,...d.data()}));
+  document.getElementById('loading-screen').style.display='none';
+  document.getElementById('screen-board').style.display='block';
+  if(document.getElementById('screen-board').style.display!=='none') renderBoard();
+  if(activeId && document.getElementById('screen-question').style.display!=='none') renderDetail();
 });
 
 onSnapshot(collection(db,"credits"), snap => {
-  credits = {};
-  snap.docs.forEach(d => { credits[d.id] = d.data(); });
-  if(document.getElementById('screen-leaderboard').style.display !== 'none') renderLeaderboard();
+  credits={};
+  snap.docs.forEach(d=>{ credits[d.id]=d.data(); });
+  if(document.getElementById('screen-leaderboard').style.display!=='none') renderLeaderboard();
 });
 
-// ══ SCREEN SWITCHER ══
+// ── SCREEN SWITCHER ──
 window.switchScreen = function(name) {
   ['board','question','leaderboard'].forEach(s=>document.getElementById('screen-'+s).style.display=s===name?'block':'none');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
@@ -293,31 +332,35 @@ window.switchScreen = function(name) {
   if(name==='leaderboard') renderLeaderboard();
 }
 
-// ══ SCREEN 1: BOARD ══
+// ── SCREEN 1: BOARD ──
 window.renderBoard = function() {
   const search=document.getElementById('search-input').value.toLowerCase();
   const subj=document.getElementById('filter-subject').value;
   let list=[...questions]
     .filter(q=>!subj||q.subject===subj)
     .filter(q=>q.question.toLowerCase().includes(search)||q.subject.toLowerCase().includes(search))
-    .sort((a,b)=>{ if(a.answered!==b.answered) return a.answered?1:-1; return (b.ts||0)-(a.ts||0); });
+    .sort((a,b)=>{
+      if(a.solved!==b.solved){ if(a.solved) return 1; if(b.solved) return -1; }
+      if(a.answered!==b.answered) return a.answered?1:-1;
+      return (b.ts||0)-(a.ts||0);
+    });
 
-  const total=questions.length, unans=questions.filter(q=>!q.answered).length;
+  const total=questions.length, unans=questions.filter(q=>!q.answered&&!q.solved).length, solved=questions.filter(q=>q.solved).length;
   document.getElementById('stats-row').innerHTML=[
     {l:"Questions",v:total,c:"var(--accent)"},
     {l:"Unanswered",v:unans,c:"var(--red)"},
-    {l:"Answered",v:total-unans,c:"var(--green)"}
+    {l:"Solved",v:solved,c:"var(--gold)"},
   ].map(s=>`<div class="stat"><div class="stat-val" style="color:${s.c}">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
 
   document.getElementById('questions-list').innerHTML = list.length===0
     ? `<div class="empty-state"><div class="ei">📭</div><p>No questions yet — be the first to ask!</p></div>`
     : list.map(q=>`
-      <div class="q-item ${q.answered?'':'unanswered'}" onclick="openQuestion('${q.id}')">
+      <div class="q-item ${q.solved?'solved':q.answered?'':'unanswered'}" onclick="openQuestion('${q.id}')">
         <div class="q-top">
           <div class="q-meta">${avatar(q.name)}<div><div class="q-name">${q.name}</div><div style="margin-top:2px">${titleBadge(credits[q.name]?.pts||0)}</div></div></div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
             ${subjectBadge(q.subject)}
-            ${!q.answered?`<span class="badge badge-needs">NEEDS HELP</span>`:`<span class="badge badge-answered">✓ Answered</span>`}
+            ${q.solved?`<span class="badge badge-solved">✅ SOLVED</span>`:q.answered?`<span class="badge badge-answered">✓ Answered</span>`:`<span class="badge badge-needs">NEEDS HELP</span>`}
           </div>
         </div>
         <div class="q-text">${q.question}</div>
@@ -325,7 +368,7 @@ window.renderBoard = function() {
       </div>`).join('');
 }
 
-// ══ SCREEN 2: QUESTION DETAIL ══
+// ── SCREEN 2: QUESTION DETAIL ──
 window.openQuestion = function(id) {
   activeId=id;
   switchScreen('question');
@@ -336,43 +379,100 @@ window.openQuestion = function(id) {
 
 window.renderDetail = function() {
   const q=questions.find(q=>q.id===activeId); if(!q) return;
+  const isSolved = q.solved;
+
   document.getElementById('detail-question-card').innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
       <div style="display:flex;align-items:center;gap:10px">${avatar(q.name,40)}<div><div style="font-weight:700;color:var(--white);font-size:15px">${q.name}</div><div style="margin-top:4px">${titleBadge(credits[q.name]?.pts||0)}</div></div></div>
       ${subjectBadge(q.subject)}
     </div>
-    <div style="font-size:15px;color:var(--white);line-height:1.65;font-weight:500">${q.question}</div>`;
+    <div style="font-size:15px;color:var(--white);line-height:1.65;font-weight:500">${q.question}</div>
+    ${isSolved?`<div style="margin-top:12px;padding:8px 12px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);border-radius:8px;font-size:13px;color:var(--gold)">✅ This question has been marked as solved!</div>`:''}
+  `;
 
-  const replies = q.replies||[];
+  const replies=q.replies||[];
   document.getElementById('replies-label').textContent=`${replies.length} ${replies.length===1?'Reply':'Replies'}`;
+
   document.getElementById('replies-list').innerHTML=replies.length===0
     ?`<div class="empty-state" style="padding:24px 0"><div class="ei">🤔</div><p style="font-size:13px">No replies yet — be the first to help!</p></div>`
-    :replies.map((r, index)=>`
-      <div class="reply-item">
+    :replies.map((r,i)=>`
+      <div class="reply-item ${r.score===5?'top-answer':''}">
         <div class="reply-top">${avatar(r.name,30)}<div>
-          <div class="reply-name">${r.name}</div>
+          <div class="reply-name" style="color:var(--white)">${r.name}</div>
           <div style="margin-top:2px">${titleBadge(credits[r.name]?.pts||0)}</div>
         </div></div>
         <div class="reply-text">${r.text}</div>
-        
-        ${r.score === undefined || r.score === null ? `
-          <div style="margin-top:12px; background:var(--bg); border-radius:8px; padding:10px;">
-            <div style="font-size:11px; color:var(--muted); font-weight:700; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px;">Did this help? Rate to give credits:</div>
-            <div style="display:flex; gap:6px;">
-              ${[0,1,2,3,4,5].map(n => `<button class="rate-btn" onclick="rateAnswer('${q.id}', ${index}, ${n}, '${r.name}')">${n}</button>`).join('')}
-            </div>
-          </div>
-        ` : `
-          <div style="margin-top:10px;font-size:11px;color:var(--green);font-weight:700; display:flex; align-items:center; gap:4px;">
-            ⭐ Awarded ${r.score} Credits
-          </div>
-        `}
+        ${r.score
+          ? `<div style="margin-top:8px;font-size:12px;color:var(--gold);font-weight:700">${'⭐'.repeat(r.score)} Rated ${r.score}/5 · +${r.score} credits earned</div>`
+          : !isSolved
+            ? `<button onclick="openRateModal(${i})" style="margin-top:10px;padding:7px 14px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:8px;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">⭐ Rate this answer (asker only)</button>`
+            : ''
+        }
       </div>`).join('');
+
+  // Hide reply form if solved
+  document.getElementById('reply-form-card').style.display = isSolved ? 'none' : 'block';
 }
 
 window.goBack = function() { switchScreen('board'); activeId=null; }
 
-// ══ SUBMIT QUESTION ══
+// ── RATING SYSTEM ──
+window.openRateModal = function(replyIndex) {
+  const q=questions.find(q=>q.id===activeId); if(!q) return;
+  rateReplyIndex=replyIndex;
+  selectedStar=0;
+  document.getElementById('rate-reply-preview').textContent=q.replies[replyIndex].text;
+  document.getElementById('rate-asker-name').value='';
+  document.getElementById('rate-error').style.display='none';
+  document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('star-label').textContent='Tap a star to rate';
+  document.getElementById('rate-modal').style.display='flex';
+}
+
+window.closeRateModal = function() {
+  document.getElementById('rate-modal').style.display='none';
+  rateReplyIndex=null; selectedStar=0;
+}
+
+window.selectStar = function(n) {
+  selectedStar=n;
+  const labels=['','Needs improvement','Partially helpful','Good answer','Great answer','Excellent! 🏆'];
+  document.querySelectorAll('.star-btn').forEach((b,i)=>{ b.classList.toggle('selected',i<n); });
+  document.getElementById('star-label').textContent=labels[n];
+}
+
+window.submitRating = async function() {
+  const q=questions.find(q=>q.id===activeId); if(!q) return;
+  const askerName=document.getElementById('rate-asker-name').value.trim();
+  const errEl=document.getElementById('rate-error');
+
+  if(!selectedStar){ alert('Please select a star rating.'); return; }
+  if(askerName.toLowerCase()!==q.name.toLowerCase()){
+    errEl.style.display='block'; return;
+  }
+  errEl.style.display='none';
+
+  const newReplies=[...q.replies];
+  newReplies[rateReplyIndex]={...newReplies[rateReplyIndex],score:selectedStar};
+  const replierName=newReplies[rateReplyIndex].name;
+
+  // Update question — mark as solved
+  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true,solved:true});
+
+  // Update credits
+  const creditRef=doc(db,"credits",replierName);
+  const creditSnap=await getDoc(creditRef);
+  if(creditSnap.exists()){
+    await updateDoc(creditRef,{pts:(creditSnap.data().pts||0)+selectedStar,answers:(creditSnap.data().answers||0)+1});
+  } else {
+    await setDoc(creditRef,{pts:selectedStar,answers:1});
+  }
+
+  showToast(`+${selectedStar} credits for ${replierName}! ${getTitle((credits[replierName]?.pts||0)+selectedStar).emoji}`);
+  closeRateModal();
+}
+
+// ── SUBMIT QUESTION ──
 window.openAskModal  = function(){ document.getElementById('ask-modal').style.display='flex'; }
 window.closeAskModal = function(){ document.getElementById('ask-modal').style.display='none'; }
 
@@ -383,57 +483,28 @@ window.submitQuestion = async function() {
   if(!name){alert('Please enter your name.');return;}
   if(!subj){alert('Please select a subject.');return;}
   if(!text){alert('Please type your question.');return;}
-  await addDoc(collection(db,"questions"),{name,subject:subj,question:text,replies:[],ts:Date.now(),answered:false});
+  await addDoc(collection(db,"questions"),{name,subject:subj,question:text,replies:[],ts:Date.now(),answered:false,solved:false});
   document.getElementById('ask-name').value='';
   document.getElementById('ask-subject').value='';
   document.getElementById('ask-question').value='';
   closeAskModal();
 }
 
-// ══ SUBMIT REPLY ══
+// ── SUBMIT REPLY ──
 window.submitReply = async function() {
   const name=document.getElementById('reply-name').value.trim();
   const text=document.getElementById('reply-text').value.trim();
   if(!name){alert('Please enter your name.');return;}
   if(!text){alert('Please type your reply.');return;}
   const q=questions.find(q=>q.id===activeId); if(!q) return;
-
-  // Add the reply to Firebase with a null score (meaning it hasn't been rated yet)
-  const newReplies=[...(q.replies||[]),{name, text, ts:Date.now(), score: null}];
-  await updateDoc(doc(db,"questions",activeId),{replies:newReplies, answered:true});
-
-  showToast(`Reply posted! The asker can now rate it.`);
+  if(name.toLowerCase()===q.name.toLowerCase()){alert("You can't answer your own question!");return;}
+  const newReplies=[...(q.replies||[]),{name,text,ts:Date.now()}];
+  await updateDoc(doc(db,"questions",activeId),{replies:newReplies,answered:true});
   document.getElementById('reply-name').value='';
   document.getElementById('reply-text').value='';
 }
 
-// ══ RATE AN ANSWER (GIVE CREDITS) ══
-window.rateAnswer = async function(qId, replyIndex, score, answererName) {
-  const q = questions.find(q => q.id === qId);
-  if(!q) return;
-
-  // 1. Update the reply inside the question document to save the score
-  const updatedReplies = [...q.replies];
-  updatedReplies[replyIndex].score = score;
-  await updateDoc(doc(db, "questions", qId), { replies: updatedReplies });
-
-  // 2. Add the credits to the user who answered
-  const creditRef = doc(db, "credits", answererName);
-  const creditSnap = await getDoc(creditRef);
-  
-  if (creditSnap.exists()) {
-    await updateDoc(creditRef, { 
-      pts: (creditSnap.data().pts || 0) + score, 
-      answers: (creditSnap.data().answers || 0) + 1 
-    });
-  } else {
-    await setDoc(creditRef, { pts: score, answers: 1 });
-  }
-
-  showToast(`You awarded ${answererName} ${score} credits!`);
-}
-
-// ══ SCREEN 3: LEADERBOARD ══
+// ── LEADERBOARD ──
 window.renderLeaderboard = function() {
   const sorted=Object.entries(credits).map(([name,d])=>({name,...d})).sort((a,b)=>b.pts-a.pts);
   document.getElementById('lb-total-helpers').textContent=sorted.length;
@@ -442,7 +513,7 @@ window.renderLeaderboard = function() {
   const order=[{i:1,h:80,c:"var(--silver)",crown:"🥈"},{i:0,h:110,c:"var(--gold)",crown:"👑"},{i:2,h:60,c:"var(--bronze)",crown:"🥉"}];
   document.getElementById('podium-wrap').innerHTML=sorted.length===0
     ?`<div class="empty-state"><div class="ei">🏆</div><p>No contributors yet!</p></div>`
-    :`<div class="podium">${order.map(p=>{const u=sorted[p.i];if(!u)return`<div style="flex:1"></div>`;const t=getTitle(u.pts);return`<div class="podium-item"><div class="podium-name">${u.name}</div><div class="podium-pts">${u.pts} pts</div><span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:10px">${t.emoji} ${t.title}</span><div class="podium-avatar-wrap"><div class="podium-crown">${p.crown}</div>${avatar(u.name,p.i===0?52:40)}</div><div class="podium-block" style="height:${p.h}px;background:${p.c}22;border:1px solid ${p.c}44;color:${p.c}">${p.i+1}</div></div>`;}).join('')}</div>`;
+    :`<div class="podium">${order.map(p=>{const u=sorted[p.i];if(!u)return`<div style="flex:1"></div>`;const t=getTitle(u.pts);return`<div class="podium-item"><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--white);text-align:center">${u.name}</div><div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${u.pts} pts</div><span class="title-badge" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:10px">${t.emoji} ${t.title}</span><div style="position:relative;margin-bottom:4px"><div style="position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:18px">${p.crown}</div>${avatar(u.name,p.i===0?52:40)}</div><div style="width:100%;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;height:${p.h}px;background:${p.c}22;border:1px solid ${p.c}44;color:${p.c}">${p.i+1}</div></div>`;}).join('')}</div>`;
 
   const rankC=["var(--gold)","var(--silver)","var(--bronze)"];
   document.getElementById('lb-full-list').innerHTML=sorted.length===0
